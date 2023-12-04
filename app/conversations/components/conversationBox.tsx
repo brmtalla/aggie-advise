@@ -17,7 +17,7 @@ interface ConversationBoxProps {
     selected?: boolean;
 }
 
-const conversationBox: React.FC<ConversationBoxProps> = ({
+const ConversationBox: React.FC<ConversationBoxProps> = ({
     data,
     selected
 }) => {
@@ -93,4 +93,4 @@ const conversationBox: React.FC<ConversationBoxProps> = ({
     )
 }
 
-export default conversationBox;
+export default ConversationBox;
