@@ -10,7 +10,8 @@ export async function POST(
         const body = await request.json();
         const {
             name,
-            image
+            image,
+            gpa
         } = body;
 
         if(!currentUser?.id) {
@@ -23,7 +24,8 @@ export async function POST(
             },
             data: {
                 image: image,
-                name: name
+                name: name,
+                ...(currentUser.userType === 'STUDENT' && { gpa: gpa }),
             }
         });
 

@@ -19,6 +19,13 @@ model User {
   hashedPassword  String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  userType  UserType @default(STUDENT)
+  gpa       Float?   // Only for students
+  department String? // Only for advisors
+  studentId String?  // Only for students
+  students  User[]   @relation("AdvisorToStudent")
+  advisor   User?    @relation("AdvisorToStudent", fields: [advisorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  advisorId String? @db.ObjectId
 
   conversationIds String[] @db.ObjectId
   conversations Conversation[] @relation(fields: [conversationIds], references: [id])
@@ -29,6 +36,11 @@ model User {
   accounts Account[]
   messages Message[]
   //__v       Int      @map("__v")
+}
+
+enum UserType {
+  STUDENT
+  ADVISOR
 }
 
 model Account {

@@ -27,8 +27,6 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  //console.log(currentUser, '&TEST_CURRENT_USER')
-
   const {
     register,
     handleSubmit,
@@ -40,7 +38,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
   } = useForm<FieldValues>({
     defaultValues: {
       name: currentUser?.name,
-      image: currentUser?.image
+      image: currentUser?.image,
+      gpa: currentUser?.gpa,
     }
   });
 
@@ -92,6 +91,33 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                 required 
                 register={register}
               />
+              {currentUser.userType === 'STUDENT' && (
+                <>
+                <Input 
+                  id="studentId" 
+                  label="Student ID" 
+                  register={register} 
+                  errors={errors}
+                 // required
+                  disabled={isLoading}
+                />
+                <Input 
+                  id="gpa" 
+                  label="GPA" 
+                  register={register} 
+                  errors={errors}
+                  disabled={isLoading}
+                />
+                <Input 
+                  id="bio" 
+                  label="Bio" 
+                  register={register} 
+                  errors={errors}
+                 // required
+                  disabled={isLoading}
+                />
+                </>
+              )}
               <div>
                 <label 
                   htmlFor="photo" 

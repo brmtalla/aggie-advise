@@ -10,7 +10,8 @@ export async function POST (
         const {
             email,
             name,
-            password
+            password,
+            userType
         } = body;
 
         if (!email || !name || !password) {
@@ -23,7 +24,8 @@ export async function POST (
             data: {
                 email,
                 name,
-                hashedPassword
+                hashedPassword,
+                userType: userType.toUpperCase()
             }
         });
 

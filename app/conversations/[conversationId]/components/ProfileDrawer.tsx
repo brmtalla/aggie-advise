@@ -135,6 +135,67 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                                                                 </div>
                                                             )}
                                                             {!data.isGroup && (
+                                                            <>
+                                                                <hr />
+                                                                {otherUser.userType === 'STUDENT' && (
+                                                                <>
+                                                                    <div>
+                                                                    <dt className="text-sm font-medium text-gray-500 sm-w-40 sm:flex-shrink-0">
+                                                                        GPA
+                                                                    </dt>
+                                                                    <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
+                                                                        {otherUser.gpa}
+                                                                    </dd>
+                                                                    </div>
+                                                                    <div>
+                                                                    <dt className="text-sm font-medium text-gray-500 sm-w-40 sm:flex-shrink-0">
+                                                                        Bio
+                                                                    </dt>
+                                                                    <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
+                                                                        {otherUser.bio}
+                                                                    </dd>
+                                                                    </div>
+                                                                    <div>
+                                                                    <dt className="text-sm font-medium text-gray-500 sm-w-40 sm:flex-shrink-0">
+                                                                        Advisor's Name
+                                                                    </dt>
+                                                                    <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
+                                                                        {otherUser.advisor}
+                                                                    </dd>
+                                                                    </div>
+                                                                    <div>
+                                                                    <dt className="text-sm font-medium text-gray-500 sm-w-40 sm:flex-shrink-0">
+                                                                        Major
+                                                                    </dt>
+                                                                    <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
+                                                                        {/*otherUser.major*/}
+                                                                    </dd>
+                                                                    </div>
+                                                                </>
+                                                                )}
+                                                                {otherUser.userType === 'ADVISOR' && (
+                                                                <>
+                                                                    <div>
+                                                                    <dt className="text-sm font-medium text-gray-500 sm-w-40 sm:flex-shrink-0">
+                                                                        Department
+                                                                    </dt>
+                                                                    <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
+                                                                        {otherUser.department}
+                                                                    </dd>
+                                                                    </div>
+                                                                    <div>
+                                                                    <dt className="text-sm font-medium text-gray-500 sm-w-40 sm:flex-shrink-0">
+                                                                        Students Served
+                                                                    </dt>
+                                                                    <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
+                                                                        {/*otherUser.students*/}
+                                                                    </dd>
+                                                                    </div>
+                                                                </>
+                                                                )}
+                                                            </>
+                                                            )}
+                                                            {!data.isGroup && (
                                                                 <>
                                                                     <hr />
                                                                     <div>
@@ -168,9 +229,6 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
     )
 
 
-  return (
-    <div>ProfileDrawer</div>
-  )
 }
 
 export default ProfileDrawer;

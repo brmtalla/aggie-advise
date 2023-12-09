@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { MdOutlineGroupAdd } from 'react-icons/md';
-import ConversationBox from './conversationBox';
+import ConversationBox from './ConversationBox';
 import GroupChatModal from './GroupChatModal';
 import { User } from '@prisma/client';
 import { useSession } from 'next-auth/react';
@@ -18,7 +18,7 @@ interface ConversationListProps {
     users: User[];
 }
 
-const conversationList: React.FC<ConversationListProps> = (
+const ConversationList: React.FC<ConversationListProps> = (
     {initialItems, users},
 ) => {
     const session = useSession();
@@ -119,4 +119,4 @@ const conversationList: React.FC<ConversationListProps> = (
   )
 }
 
-export default conversationList
+export default ConversationList;

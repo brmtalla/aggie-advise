@@ -58,6 +58,7 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
                         flex-col
                         items-center
                         space-y-1
+                        text-yellow-700
                     "
                 >
                     {routes.map((item) => (

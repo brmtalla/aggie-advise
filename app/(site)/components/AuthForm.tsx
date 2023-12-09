@@ -1,16 +1,17 @@
 'use client'
-
+import { Transition } from '@headlessui/react';
 import Button from '@/app/components/Button';
 import Input from '@/app/components/inputs/Input';
-import React, { useState, useCallback, useEffect, use } from 'react'
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import React, { useState, useCallback, useEffect } from 'react'
+import { FieldValues, SubmitHandler, useForm, Controller } from 'react-hook-form';
 import {BsGithub, BsGoogle} from 'react-icons/bs';
 import AuthSocialButton from './AuthSocialButton';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import {signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation';
-import { sign } from 'crypto';
+import Select from 'react-select';
+
 
 type Variant = 'LOGIN' | 'REGISTER'
 
@@ -35,23 +36,36 @@ const AuthForm = () => {
     }, [variant]);
 
     const {
+        watch,
         register,
         handleSubmit,  
         formState: { errors },
+        control
     } = useForm<FieldValues>({
         defaultValues: {
             name: '',
             email: '',
             password: '',
+            userType: '',
+            gpa: '',
+            studentId: '',
+            department: ''
         },
     })
+
+    const userType = watch('userType');
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         setIsLoading(true);
 
         if (variant === 'REGISTER') {
-            axios.post('/api/register', data)
-            .then(() => signIn('credentials', data))
+            const userData = {
+                ...data,
+                userType: data.userType.value, // Add userType field
+            };
+
+            axios.post('/api/register', userData)
+            .then(() => signIn('credentials', userData))
             .catch(() => toast.error('Something went wrong'))
             .finally(() => setIsLoading(false))
         }
@@ -115,15 +129,18 @@ const AuthForm = () => {
                 <form
                     className="space-y-6"
                     onSubmit={handleSubmit(onSubmit)}
-                >
+                    >
                     {variant === 'REGISTER' && (
+                    <>
                         <Input 
-                            id="name" 
-                            label="Name" 
-                            register={register} 
-                            errors={errors}
-                            disabled={isLoading}
+                        id="name" 
+                        label="Name" 
+                        register={register} 
+                        errors={errors}
+                        disabled={isLoading}
                         />
+                        {/* ...other fields... */}
+                    </>
                     )}
                     <Input 
                         id="email" 
@@ -132,7 +149,6 @@ const AuthForm = () => {
                         register={register} 
                         errors={errors}
                         disabled={isLoading}
-
                     />
                     <Input 
                         id="password"
@@ -142,13 +158,36 @@ const AuthForm = () => {
                         errors={errors}
                         disabled={isLoading}
                     />
+                    {variant === 'REGISTER' && (
+                    <>
+                        <div className="relative">
+                            <label className="block text-sm leading-6 font-medium text-gray-700">
+                            User Type
+                            </label>
+                            <Controller
+                            name="userType"
+                            control={control}
+                            defaultValue=""
+                            render={({ field }) => (
+                                <Select
+                                {...field}
+                                options={[
+                                    { value: 'STUDENT', label: 'Student' },
+                                    { value: 'ADVISOR', label: 'Advisor' },
+                                ]}
+                                />
+                            )}
+                            />
+                        </div>
+                        </>
+                    )}
                     <div>
                         <Button
-                            disabled={isLoading}
-                            fullWidth
-                            type="submit"
+                        disabled={isLoading}
+                        fullWidth
+                        type="submit"
                         >
-                            {variant === 'LOGIN' ? 'Sign in' : 'Sign up'}
+                        {variant === 'LOGIN' ? 'Sign in' : 'Sign up'}
                         </Button>
                     </div>
                 </form>

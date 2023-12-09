@@ -1,8 +1,9 @@
 import { use, useMemo } from 'react';
 import { usePathname } from 'next/navigation';
-import { HiChat } from 'react-icons/hi';
-import { HiArrowLeftOnRectangle, HiUsers } from 'react-icons/hi2';
+import { HiAcademicCap, HiCalculator, HiChat, HiUserGroup } from 'react-icons/hi';
+import { HiArrowLeftOnRectangle, HiChartPie, HiUsers } from 'react-icons/hi2';
 import {signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 
 import useConversation from './useConversation';
 
@@ -22,6 +23,24 @@ const useRoutes = () => {
             href: '/users',
             icon: HiUsers,
             active: pathname === '/users',
+        },
+        {
+            label: 'GPA Calculator',
+            href: '/gpa',
+            icon: HiCalculator,
+            active: pathname === '/gpa',
+        },
+        {
+            label: 'Class Calculator',
+            href: '/classes',
+            icon: HiAcademicCap,
+            active: pathname === '/classes',
+        },
+        {
+            label: 'Advisor View',
+            href: '/advisor',
+            icon: HiUserGroup,
+            active: pathname === '/advisor',
         },
         {
             label: 'Logout',
